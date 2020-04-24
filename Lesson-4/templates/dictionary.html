@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+    {%if sunny %}
+    <p>Today is Sunny</p>
+    {%else%}
+    <p>Today is Rainy</p>
+    {%endif%}
+
+    {%for post in posts%}
+    <p>Author: {{post.author}}</p>
+    <p>Name: {{post.name}}</p>
+    {%endfor%}
+
+</body>
+</html>
