@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task App</title>
+    <!---Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+     <!---Bootswatch CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/journal/bootstrap.min.css">
+     <!---CSS-->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'main.css')}}">
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center title mt-4">Task App</h1>
+        
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <!---Redirect to 'URL: /create-task with POST method-->
+                        <form action="/create-task" method="POST">
+                            <div class="form-group">
+                                <!--name = "content" is received by the flask server through 'request.form'-->
+                                <input type="text" placeholder="Task" autofocus class="form-control" name ="content">
+
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Save Task
+                            </button>
+
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <!---We get 'tasks' variable from render_template then we do a tour with a for loop -->
+                            {% for task in tasks %}
+                            <li class="list-group-item">
+                                <!---task.content = task variable in loop, and content is the property of the object 'Task'-->
+                                <!--'task' is a variable in for loop, and 'done' is a property of the object 'Task', 'done class' in css --->
+                                <span class="{% if task.done == True %} done {%endif%}">{{ task.content }}</span>
+                                <!--URL with jinja2 get 'id' with property from 'task' variable from for loop-->
+                                <a href="/done/{{task.id}}" class="btn btn-success btn-sm">Done</a>
+                                <a href="/delete/{{task.id}}" class="btn btn-danger btn-sm">Delete</a>
+
+                            </li>
+                            <!--Close for loop-->
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>
